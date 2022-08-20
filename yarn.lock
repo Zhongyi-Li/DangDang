@@ -7,6 +7,11 @@
   "resolved" "https://registry.npmmirror.com/@babel/parser/-/parser-7.18.11.tgz"
   "version" "7.18.11"
 
+"@types/node@^18.7.8":
+  "integrity" "sha512-/YP55EMK2341JkODUb8DM9O0x1SIz2aBvyF33Uf1c76St3VpsMXEIW0nxuKkq/5cxnbz0RD9cfwNZHEAZQD3ag=="
+  "resolved" "https://registry.npmmirror.com/@types/node/-/node-18.7.8.tgz"
+  "version" "18.7.8"
+
 "@vitejs/plugin-vue@^3.0.3":
   "integrity" "sha512-U4zNBlz9mg+TA+i+5QPc3N5lQvdUXENZLO2h0Wdzp56gI1MWhqJOv+6R+d4kOzoaSSq6TnGPBdZAXKOe4lXy6g=="
   "resolved" "https://registry.npmmirror.com/@vitejs/plugin-vue/-/plugin-vue-3.0.3.tgz"
