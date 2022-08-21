@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import getImg, { LmgLoader } from '../utils/imgUtil'
 
 defineProps<{ msg: string }>()
 
+console.log('hellWorld.vue', getImg('白夜行.png'))
+
 const count = ref(0)
+const imgName = ref('白夜行.png')
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
-
+  <img :src="getImg('白夜行.png')" alt="" />
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
@@ -19,9 +23,8 @@ const count = ref(0)
 
   <p>
     Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
+    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">create-vue</a>, the
+    official Vue + Vite starter
   </p>
   <p>
     Install
