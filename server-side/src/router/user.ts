@@ -1,12 +1,19 @@
+import { success } from '../common/ResResult'
 import { Context } from 'Koa'
  import Router from 'koa-router'
+import userDao from '../dao/userDao'
+import Userinfo from '../model/userInfo'
 
 const router = new Router() 
 router.prefix('/usermodule')
 
- router.get('/findUserInfo/:username',async (ctx:Context)=>{
-    const {username} = ctx.params
-     ctx.body = `Hello ${username}`
+ router.get('/findUserInfo/:username/:psw',async (ctx:Context)=>{
+    const {username, psw } = ctx.params
+    const userInfo:Userinfo[] = await userDao.findUserinfo(username,psw)
+    console.log();
+    
+
+     ctx.body = success(`Hello ${username}`) 
 })
 
 router.post('/addUser',async(ctx)=>{

@@ -4,7 +4,10 @@ import fs from 'fs'
 import body from 'koa-body'
 import json from 'koa-json'
 import Router from 'koa-router'
+
 import globalException from './GlobalExce'
+import * as ResResult from './ResResult'
+
 const middleware1=async (ctx:Context,next:Koa.Next)=>{
      console.log("第一个中间件开始....")
      await next()
@@ -22,6 +25,7 @@ class AllRouterLoader {
   // 初始化方法
   init(app: Koa) {
     this.app = app
+    
     const rootRouter=this.loadAllRouterWrapper()
     //this.app.use(middleware1)
     this.app.use(globalException)
