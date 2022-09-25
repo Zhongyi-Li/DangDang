@@ -5,13 +5,13 @@ import baseDao from './baseDao'
 class UserDao{
     static userDao:UserDao = new UserDao()
     findUserinfo(uasername:string,psw:string){
-        let sql = "select * from userinfo where 1=1"
+        let sql = "select * from myuserinfo where 1=1"
 
         if(isNotEmpty(uasername)){
             sql+= ` and username = "${uasername}" `
         }
         if(isNotEmpty(psw)){
-            sql+= `and pws="${psw}"`
+            sql+= `and psw="${psw}"`
         }
 
         return baseDao.query<Userinfo[]>(sql)

@@ -28,16 +28,16 @@ interface envConf{
         this.envConf = {
             dev:{
                 host:'localhost',
-                user:'admin',
+                user:'lzy',
                 password:'123',
-                database:'dangdang',
+                database:'test',
                 port:3306
             },
             prod:{
                 host:'www.xxx.com',
-                user:'admin',
+                user:'lzy',
                 password:'123',
-                database:'dangdang',
+                database:'test',
                 port:3306
             }
         }

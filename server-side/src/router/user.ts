@@ -10,9 +10,8 @@ router.prefix('/usermodule')
  router.get('/findUserInfo/:username/:psw',async (ctx:Context)=>{
     const {username, psw } = ctx.params
     const userInfo:Userinfo[] = await userDao.findUserinfo(username,psw)
-    console.log();
+    console.log('usefInfo---',username,psw);
     
-
      ctx.body = success(`Hello ${username}`) 
 })
 

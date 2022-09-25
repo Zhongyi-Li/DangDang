@@ -1,5 +1,5 @@
 import mysql, { Connection } from 'mysql'
-import DbConfig from '@/conf/DbConfig'
+import DbConfig from '../conf/DbConfig'
 
 class BaseDao {
     static baseDao:BaseDao = new BaseDao()
