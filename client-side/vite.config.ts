@@ -11,7 +11,6 @@ export default defineConfig((mode) => {
   let server: CommonServerOptions = {}
   const envData = fs.readFileSync(curEnvFileName)
   const envMap: DotenvParseOutput = dotenv.parse(envData)
-  console.log('envMap:', envMap)
   if (mode.mode === 'development') {
     server = {
       host: envMap.VITE_HOST,

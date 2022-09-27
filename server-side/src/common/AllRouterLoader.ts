@@ -84,7 +84,6 @@ class AllRouterLoader {
 
   listen() {
     this.app.listen(3003)
-    console.log('在3003端口监听....')
   }
 }
 
