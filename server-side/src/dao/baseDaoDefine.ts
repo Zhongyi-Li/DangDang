@@ -11,6 +11,8 @@ class BaseDaoDefine{
 
     initSeqConf(dialect:Dialect){
         const { host,password,user,port, database } = DbConfig.getConf()
+        console.log('数据库配置',host,password,user,port,database);
+        
         this.sequelize = new Sequelize(database,user,password,{
             host,
             port,

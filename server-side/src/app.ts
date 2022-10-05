@@ -5,6 +5,6 @@ import Config from './conf/DbConfig'
 const app = new Koa()
 allRouterLoader.init(app)
 const envCon = Config.getConf('')
-console.log(envCon);
+console.log('配置信息',envCon);
 
 
