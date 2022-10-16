@@ -1,16 +1,15 @@
-import koa,{ Context } from 'koa'
-import { defaults } from 'lodash';
+import Koa, { Context } from 'koa'
+import { success, fail } from './ResResult'
+import logger from './LogUtil'
 
-import {success,fail} from './ResResult'
-
-  const globalExcettion = async (ctx:Context,next:koa.Next)=>{
-    try{
-        await next()
-    }catch(error){
-        const errslt = error as {message:''}
-        ctx.body =fail(`服务端出现异常${errslt.message}` ) 
-        
-    }
+const globalException = async (ctx: Context, next: Koa.Next) => {
+  //logger.info('进入到通用异常')
+  try {
+    await next()
+  } catch (err: any) {
+    const errrslt = err as { message: string }
+    ctx.body = fail(`服务器错误:${errrslt.message}`)
+  }
 }
 
-export default globalExcettion
+export default globalException

@@ -4,29 +4,25 @@ import fs from 'fs'
 import body from 'koa-body'
 import json from 'koa-json'
 import Router from 'koa-router'
-
 import globalException from './GlobalExce'
-import * as ResResult from './ResResult'
-
-const middleware1=async (ctx:Context,next:Koa.Next)=>{
-     console.log("第一个中间件开始....")
-     await next()
-     console.log("第一个中间件结束....")
-}
-const middleware2=async (ctx:Context,next:Koa.Next)=>{
-  console.log("第二个中间件开始....")
+const middleware1 = async (ctx: Context, next: Koa.Next) => {
+  console.log('第一个中间件开始....')
   await next()
-  console.log("第二个中间件结束....")
+  console.log('第一个中间件结束....')
 }
-  
+const middleware2 = async (ctx: Context, next: Koa.Next) => {
+  console.log('第二个中间件开始....')
+  await next()
+  console.log('第二个中间件结束....')
+}
+
 class AllRouterLoader {
   app!: Koa
   static allRouterLoader: AllRouterLoader = new AllRouterLoader()
   // 初始化方法
   init(app: Koa) {
     this.app = app
-    
-    const rootRouter=this.loadAllRouterWrapper()
+    const rootRouter = this.loadAllRouterWrapper()
     //this.app.use(middleware1)
     this.app.use(globalException)
     this.app.use(rootRouter.routes())
@@ -57,7 +53,7 @@ class AllRouterLoader {
     const allFullFilePaths = this.getAbsoluteFilePaths()
     //  3.2  调用加载所有二级路由到一级路由方法
     this.loadAllRouter(allFullFilePaths, rootRouter)
-    return rootRouter;
+    return rootRouter
   }
   // 3.0  获取一级路由
   getRootRouter() {
@@ -74,6 +70,7 @@ class AllRouterLoader {
   }
 
   loadAllRouter(allFullFilePaths: string[], rootRouter: Router) {
+    console.log('allFullFilePaths:', allFullFilePaths)
     for (let fullFilePath of allFullFilePaths) {
       const module = require(fullFilePath)
       if (this.isRouter(module)) {
@@ -83,10 +80,8 @@ class AllRouterLoader {
   }
 
   listen() {
-    this.app.listen(3003,()=>{
-      console.log('监听在3003端口...');
-      
-    })
+    this.app.listen(3003)
+    console.log('在3003端口监听....')
   }
 }
 
