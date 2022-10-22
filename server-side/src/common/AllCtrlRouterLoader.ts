@@ -46,6 +46,7 @@ class AllCtrlRouterLoader {
   }
   isCtrlFile(file: string) {
     const fileName: string = file.substring(file.lastIndexOf('\\') + 1, file.lastIndexOf('.'))
+    
     const extensionName: string = file.substring(file.lastIndexOf('.'), file.length)
     return fileName.indexOf('Controller') !== -1 && extensionName === '.ts'
   }

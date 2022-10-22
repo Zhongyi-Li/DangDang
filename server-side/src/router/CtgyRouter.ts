@@ -9,7 +9,7 @@ router.prefix('/ctgymodule')
 
 router.get('/findSecThrdCtgys/:firstctgyid', async (ctx: Context) => {
   const { firstctgyid } = ctx.params
-  ctx.body = success(await ctgyDao.findSecThrdCtgys(firstctgyid))
+  ctx.body = success(await ctgyDao.findSecThrdCtgys(firstctgyid as number))
 })
 
 module.exports = router

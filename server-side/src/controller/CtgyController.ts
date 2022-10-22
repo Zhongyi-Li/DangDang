@@ -8,6 +8,6 @@ class CtgyController {
   @get('/findSecThrdCtgys/:firstctgyid')
   async findSecThrdCtgys(ctx: Context) {
     const { firstctgyid } = ctx.params
-    ctx.body = success(await ctgyDao.findSecThrdCtgys(firstctgyid))
+    ctx.body = success(await ctgyDao.findSecThrdCtgys(firstctgyid as number))
   }
 }
