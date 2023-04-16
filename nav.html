@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="./jquery-min.js"></script>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        height: 49px;
+        padding: 0 64px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .nav .left-side {
+        display: flex;
+        /* width: 100%; */
+      }
+
+      .nav .left-side .logo {
+        display: flex;
+        width: 249px;
+        background-color: burlywood;
+      }
+
+      .nav .left-side .menu {
+        display: flex;
+        width: calc(100vw - 700px);
+        position: relative;
+      }
+
+      .nav .left-side .menu .menu-wrapper {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav .left-side .menu span {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 12px;
+        font-size: 14px;
+        height: 100%;
+        color: gray;
+        white-space: nowrap;
+        position: relative;
+      }
+
+      .nav .left-side .menu span:hover {
+        /* background-color: #ddd; */
+        cursor: pointer;
+        color: #000;
+        font-size: 14px;
+      }
+
+      .nav .left-side .menu span:hover .submenu {
+        display: block;
+        /* visibility: visible; */
+        /* left: -135px; */
+      }
+
+      .nav .tool {
+        width: 329px;
+        background-color: burlywood;
+      }
+      .nav #more {
+        display: flex;
+        align-items: center;
+        width: 100px;
+        height: 100%;
+        font-size: 14px;
+        color: gray;
+      }
+
+      .box {
+        position: absolute;
+        width: 500px;
+        box-sizing: border-box;
+        overflow-x: auto;
+        white-space: nowrap;
+        background-color: antiquewhite;
+        visibility: hidden;
+      }
+      .box span {
+        display: inline-flex;
+        padding: 0 12px;
+        font-size: 14px;
+      }
+
+      #view-menu {
+        padding: 10px;
+        background-color: #ddd;
+      }
+
+      .submenu {
+        position: absolute;
+        top: 39px;
+        width: 300px;
+        height: 50px;
+        background-color: bisque;
+        z-index: 99;
+        /* display: none; */
+        /* visibility: hidden; */
+        /* transition: all 0.1s; */
+      }
+
+      .submenu:hover {
+        display: block;
+      }
+    </style>
+    <div class="nav">
+      <div class="left-side">
+        <div class="logo"></div>
+        <div class="menu">
+          <div class="menu-wrapper">
+            <!-- <span class="muen-item">Home</span>
+            <span class="menu-item">Order</span>
+            <span class="menu-item">Promotion</span>
+            <span class="menu-ite,">Hot Active</span>
+            <span class="menu-item">ExChange - Part</span>
+            <span class="menu-item">Tql</span>
+            <span class="menu-item">Finished - Tel</span>
+            <span class="menu-item">Legal Policy</span>
+            <span class="menu-item">Hik-Vision</span> -->
+          </div>
+
+          <div id="more">More ></div>
+        </div>
+      </div>
+
+      <div class="tool"></div>
+    </div>
+    <div class="box">
+      <span>Home</span>
+      <span>Order</span>
+      <span>Promotion</span>
+      <span>Hot Active</span>
+      <span>ExChange-Part</span>
+      <span>Tql</span>
+      <span>Finished-Tel</span>
+      <span>Legal Policy</span>
+      <span>Hik-Vision</span>
+      <span>Alii-Baba</span>
+    </div>
+
+    <!-- <div id="view-menu"></div> -->
+
+    <!-- <div class="submenu"></div> -->
+  </body>
+  <script>
+    const BindEvent = () => {
+      Array.from(document.getElementsByClassName("muen-item")).forEach(
+        (dom) => {
+          dom.addEventListener("mouseenter", (e) => {
+            $(".submenu").show();
+            $(".submenu").css({
+              left: e.clientX + "px",
+            });
+            console.log("鼠标移入了", e.clientX);
+          });
+
+          dom.addEventListener("mouseleave", (e) => {
+            $(".submenu").hide();
+
+            console.log("鼠标离开了", e);
+          });
+        }
+      );
+    };
+
+    function GeneratorMenu() {
+      console.log("生成菜单");
+      const MENU_MAP = {}; //菜单映射表
+      const referMenuWidth = Array.from($(".box").children()).reduce(
+        (t, c, x) => {
+          // console.log("每一个字菜单的宽度:", $(c).innerWidth());
+          MENU_MAP[$(c).text()] = $(c).innerWidth();
+          return t + $(c).innerWidth();
+        },
+        0
+      );
+
+      const menuWidth = document.getElementsByClassName("menu")[0].offsetWidth; //菜单容器宽度
+
+      const morew = $(".menu>div").innerWidth() || 0;
+      console.log("菜单宽度:", menuWidth);
+      console.log("隐藏盒子菜单宽度:", referMenuWidth);
+      console.log("菜单映射表:", MENU_MAP);
+
+      $(".menu-wrapper").empty();
+      $("#view-menu").empty();
+      //每次计算前都清空菜单
+
+      if (menuWidth > referMenuWidth) {
+        Object.keys(MENU_MAP).forEach((item) => {
+          $(".menu-wrapper").append(
+            `<span class=muen-item>${item}<div class="submenu"></div></span>`
+          );
+        });
+        $("#more").hide();
+        console.log("菜单大于子元素");
+      } else {
+        console.log("菜单小于子元素");
+        let menuW = 0;
+        Object.keys(MENU_MAP).forEach((item) => {
+          menuW += MENU_MAP[item];
+
+          if (menuWidth > menuW + 100) {
+            $(".menu-wrapper").append(
+              `<span class=muen-item>${item} <div class="submenu"></div></span>`
+            );
+          } else {
+            $("#view-menu").append(`<span class=muen-item>${item}</span>`);
+            console.log("将剩余展示不下的放到查看更多里");
+          }
+        });
+        $("#more").show();
+        // BindEvent();
+      }
+      // console.log("所有子元素的宽度：", referMenuWidth + morew);
+      console.log("resize");
+    }
+
+    let timer = null;
+
+    GeneratorMenu();
+    // BindEvent();
+    window.addEventListener("resize", () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      timer = setTimeout(() => {
+        GeneratorMenu();
+      }, 200);
+    });
+  </script>
+</html>
