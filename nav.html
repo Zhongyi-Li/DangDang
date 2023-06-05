@@ -243,5 +243,16 @@
         GeneratorMenu();
       }, 200);
     });
+    
+    //2023/06/05
+    const interitree = (treeData = []) => {
+        return treeData.map((item) => {
+          item.disabled = item.manageable !== "0";
+          if (item.children && item.children.length > 0) {
+            item.children = interitree(item.children);
+          }
+          return item;
+        });
+      };
   </script>
 </html>
