@@ -1,0 +1,73 @@
+如果您只想展开或者收起所有的子节点，而不是清空选中项，可以将 expandedKeys 数组设置为当前 Tree 组件中所有节点的 key 值，或者将其设置为空数组。
+
+具体来说，如果您想展开所有的子节点，可以将 expandedKeys 数组设置为一个包含所有节点的 key 值的数组。
+您可以通过遍历树形结构数据来生成这个数组，然后将它赋值给 expandedKeys 属性即可。
+这里定义了一个名为 getAllKeys 的函数，用于遍历树形结构数据并返回包含所有节点的 key 值的数组。
+然后在 handleExpandAll 方法中调用该函数获取所有节点的 key 值，并将其赋值给 expandedKeys 属性。
+如果您想收起所有的子节点，可以将 expandedKeys 数组设置为空数组即可：
+
+import { useState } from 'react';
+import { Tree, Button } from 'antd';
+
+const { TreeNode } = Tree;
+
+const treeData = [
+  {
+    title: 'Node 1',
+    key: '0-0',
+    children: [
+      {
+        title: 'Child Node 1',
+        key: '0-0-0',
+      },
+      {
+        title: 'Child Node 2',
+        key: '0-0-1',
+      },
+    ],
+  },
+  {
+    title: 'Node 2',
+    key: '0-1',
+    children: [
+      {
+        title: 'Child Node 3',
+        key: '0-1-0',
+      },
+    ],
+  },
+];
+
+const getAllKeys = (data) => {
+  const result = [];
+  data.forEach((node) => {
+    result.push(node.key);
+    if (node.children) {
+      result.push(...getAllKeys(node.children));
+    }
+  });
+  return result;
+};
+
+const DemoTree = () => {
+  const [expandedKeys, setExpandedKeys] = useState([]);
+
+  const handleExpandAll = () => {
+    setExpandedKeys(getAllKeys(treeData));
+  };
+
+  return (
+    <>
+      <Button onClick={handleExpandAll}>Expand All</Button>
+      <Tree expandedKeys={expandedKeys} onExpand={setExpandedKeys}>
+        {treeData.map((node) => (
+          <TreeNode title={node.title} key={node.key}>
+            {node.children && node.children.map((child) => (
+              <TreeNode title={child.title} key={child.key} />
+            ))}
+          </TreeNode>
+        ))}
+      </Tree>
+    </>
+  );
+};
