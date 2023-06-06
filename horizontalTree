@@ -1,0 +1,80 @@
+import { Tree } from 'antd';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import styles from './DemoTree.module.css';
+
+.horizontalTreeItem {
+  display: inline-block;
+}
+
+.horizontalTreeChildren {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+
+
+const treeData = [
+  {
+    title: 'Parent 1',
+    key: '0-0',
+    children: [
+      {
+        title: 'Child 1',
+        key: '0-0-0',
+      },
+      {
+        title: 'Child 2',
+        key: '0-0-1',
+      },
+    ],
+  },
+  {
+    title: 'Parent 2',
+    key: '1-1',
+    children: [
+      {
+        title: 'Child 3',
+        key: '1-1-0',
+      },
+      {
+        title: 'Child 4',
+        key: '1-1-1',
+      },
+    ],
+  },
+];
+
+const switcherIcon = ({ expanded }) => {
+  if (expanded) {
+    return <MinusOutlined />;
+  } else {
+    return <PlusOutlined />;
+  }
+};
+
+const DemoTree = () => {
+  const renderTreeNode = (nodeData) => {
+    if (nodeData.children) {
+      return (
+        <div className={styles.horizontalTreeItem}>
+          {nodeData.title}
+          <div className={styles.horizontalTreeChildren}>
+            {nodeData.children.map((child) => renderTreeNode(child))}
+          </div>
+        </div>
+      );
+    } else {
+      return <div className={styles.horizontalTreeItem}>{nodeData.title}</div>;
+    }
+  };
+
+  return (
+    <Tree
+      switcherIcon={switcherIcon}
+      treeData={treeData}
+      treeNodeRender={renderTreeNode}
+    />
+  );
+};
+
+export default DemoTree;
