@@ -1,0 +1,37 @@
+<template>
+  <a-select
+    v-model="selectedOptions"
+    mode="multiple"
+    :filter-option="filterOption"
+    placeholder="请选择"
+    style="width: 200px"
+  >
+    <a-select-option v-for="option in options" :key="option.value" :value="option.value">
+      {{ option.label }}
+    </a-select-option>
+  </a-select>
+</template>
+
+<script>
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  data() {
+    return {
+      options: [
+        { value: 'option1', label: '选项1' },
+        { value: 'option2', label: '选项2' },
+        { value: 'option3', label: '选项3' },
+        { value: 'option4', label: '选项4' },
+        { value: 'option5', label: '选项5' },
+      ],
+      selectedOptions: [],
+    };
+  },
+  methods: {
+    filterOption(input, option) {
+      return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    },
+  },
+});
+</script>
